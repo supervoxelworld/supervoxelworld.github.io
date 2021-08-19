@@ -220,7 +220,7 @@ textarea {
 /* End extract */
 html,
 body {
-    font-family: Verdana, sans-serif;
+    font-family: 'Playfair Display', serif;
     font-size: 15px;
     line-height: 1.5
 }
@@ -275,9 +275,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 400;
-    margin: 10px 0
 }
 
 .w3-wide {
@@ -628,7 +627,7 @@ a {
 .w3-row-padding>.w3-threequarter,
 .w3-row-padding>.w3-quarter,
 .w3-row-padding>.w3-col {
-    padding: 0 8px
+    padding: 0 12px
 }
 
 .w3-container:after,
