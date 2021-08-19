@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<title>Super Voxel World - game dev co-working space in Brunswick, Melbourne</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="normalize.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+  body,h1 
+  {
+    font-family: "Montserrat", sans-serif
+  }
+  img 
+  {
+    margin-bottom: -7px
+  }
+  .w3-row-padding img 
+  {
+    margin-bottom: 12px
+  }
+
+  div.studio-photos img
+  {
+    width:100%;
+  }
+  
+  .thinscreen-only, .widescreen-only { display: none; }
+  .widescreen-only { display: none; }
+  @media (max-width:900px)
+  {
+    .thinscreen-only {  display:block;   }
+  }
+  @media (min-width:900px)
+  {
+    .widescreen-only  {  display:block;   }
+  }
+</style>
+
+
+
+<body>
+
+  <!-- Sidebar -->
+  <nav class="w3-sidebar w3-black w3-animate-top w3-xxlarge" style="display:none;padding-top:150px" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-black w3-xxlarge w3-padding w3-display-topright" style="padding:6px 24px">
+      <i class="fa fa-remove"></i>
+    </a>
+    <div class="w3-bar-block w3-center">
+      <p><a href="mailto:info@supervoxel.world" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Get in touch: info@supervoxel.world</a></p>
+    </div>
+  </nav>
+
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-content" style="max-width:1500px">
+
+  <!-- Header -->
+  <div class="w3-opacity">
+  <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
+  <div class="w3-clear"></div>
+  <header class="w3-center w3-margin-bottom">
+    <h1><b>Super Voxel World</b></h1>
+    <h2><b>Game Dev Co-Working Space in Brunswick</b></h2>
+    
+  </header>
+  </div>
+
+<!--
+wide_0002_availableteamarea.jpg
+tall_0007_nicelylitsecondfloordesk.jpg
+wide_0003_coffeemachineandgrinder.jpg
+.jpg
+tall_0008_plentyofplants.jpg
+tall_0003_bikestorage.jpg-->
+
+
+  <!-- Photo Grid widescreen -->
+  <div class="w3-row-padding studio-photos widescreen-only">
+    <div class="w3-third">
+      <img src="images/tall_0000_rooftopskylineview.jpg">
+      <img src="images/wide_0001_luncharea.jpg">
+      <img src="images/tall_0006_kitchenwithdishwasherandseating.jpg">
+    </div>
+
+    <div class="w3-third">
+      <img src="images/tall_0002_meetingtable.jpg">
+      <img src="images/tall_0009_secondfloordeskwithwindows.jpg">
+      <img src="images/wide_0005_yournewdesk.jpg">
+    </div>
+
+    <div class="w3-third">
+      <img src="images/tall_0005_secondfloordeskview.jpg">
+      <img src="images/wide_0004_rooftopseating.jpg">
+      <img src="images/tall_0004_espressocoffeemachine.jpg">
+    </div>
+  </div>
+
+  <!-- Photo Grid thinscreen -->
+  <div class="w3-row-padding studio-photos thinscreen-only">
+    <div class="w3-third">
+      <img src="images/tall_0000_rooftopskylineview.jpg">
+      <img src="images/wide_0001_luncharea.jpg">
+      <img src="images/tall_0006_kitchenwithdishwasherandseating.jpg">
+      <img src="images/tall_0002_meetingtable.jpg">
+    </div>
+    
+    <div class="w3-third">
+      <img src="images/wide_0005_yournewdesk.jpg">
+      <img src="images/tall_0009_secondfloordeskwithwindows.jpg">
+      <img src="images/wide_0004_rooftopseating.jpg">
+      <img src="images/tall_0005_secondfloordeskview.jpg">
+      <!--<img src="images/tall_0004_espressocoffeemachine.jpg"> ONE LESS IMAGE-->
+    </div>
+  </div>
+
+
+
+
+  <!-- End Page Content -->
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin-top:128px"> 
+    <!--<i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>-->
+    <p class="w3-medium">Established in 2020.</p>
+  </footer>
+   
+  <script>
+  // Toggle grid padding
+  function myFunction() {
+    var x = document.getElementById("myGrid");
+    if (x.className === "w3-row") {
+      x.className = "w3-row-padding";
+    } else { 
+      x.className = x.className.replace("w3-row-padding", "w3-row");
+    }
+  }
+
+  // Open and close sidebar
+  function w3_open() {
+    document.getElementById("mySidebar").style.width = "100%";
+    document.getElementById("mySidebar").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+  </script>
+
+</body>
+</html>
