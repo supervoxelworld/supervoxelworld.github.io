@@ -47,6 +47,11 @@
     font-variation-settings: 'wght' 625;
     font-weight: 625;
   }
+  h1, h2 
+  { 
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
   div.mainsection
   {
     padding-top: 32px;
@@ -130,6 +135,10 @@
     left: calc(-130px / 2);
     position: relative;
   }
+  .textblock
+  {
+    margin-bottom: 42px;
+  }
 </style>
 
 
@@ -208,7 +217,7 @@
   <!-- PRICING AND FEATURES LISTING -->
   <div class="w3-center mainsection" style="padding-top: 0px; margin-top: 0px; margin-bottom: 36px;">
     <h2 style="padding-top: 0px; margin-top: 0px;">Single desk - $360 per week inc gst (5 available)</h2>
-    <p><b>Rent is all inclusive:</b><br />
+    <p class="textblock"><b>Rent is all inclusive:</b><br />
       • coffee/tea, internet, power/water/rates etc<br />
       • 1000mbps down : 400mbps up <br />
       • Seamless 4 level WIFI<br />
@@ -323,7 +332,7 @@ function triplicateImagesForMobile()
       to    { transform: translateX(-33.33333%);   }
     }
   }
-  
+
   .imagediv
   {
     height: 180px;
@@ -340,7 +349,7 @@ function triplicateImagesForMobile()
 
   <div class="w3-center mainsection linkedimages">
     <h2>Games Made Here</h2>
-    <p>Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
+    <p class="textblock">Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
     <div class="imagelist">
       <div class="scrollingcontainer scrollleft tripleme">
         <div class="imagediv"><a href="https://www.henryshouse.com.au/games" title="Kardboard Kings"><img src="images/games/kardboard_kings.jpg" /></a></div>
@@ -387,15 +396,15 @@ function triplicateImagesForMobile()
     }
     .studio img
     {
-
       height: auto;
       max-height:100%;
       max-width: 100vw;
     }
   </style>
+
   <div class="w3-center mainsection linkedimages">
     <h2>Devs Working Here</h2>
-    <p>Sierra Asher | Oscar Brittain | Matt Davis | Henrik Pettersson | Soft Science | Super Spin Digital | The Voxel Agents</p>
+    <p class="textblock">Sierra Asher | Oscar Brittain | Matt Davis | Henrik Pettersson | Soft Science | Super Spin Digital | The Voxel Agents</p>
     <div class="studioslist">
       <div class="studio"><a href="https://feed.games/" title="Feed Games"><img src="images/studios/feed-logo.gif" /></a></div>
       <div class="studio"><a href="https://www.henryshouse.com.au/" title="Henry's House"></a><img src="images/studios/henrys-house.png" /></a></div>
@@ -434,28 +443,7 @@ function triplicateImagesForMobile()
       <br />By Steve, Simon and Matt
       <br />Est. 2020</p>
   </footer>
-   */
-  <script>
-  // Toggle grid padding
-  function myFunction() {
-    var x = document.getElementById("myGrid");
-    if (x.className === "w3-row") {
-      x.className = "w3-row-padding";
-    } else { 
-      x.className = x.className.replace("w3-row-padding", "w3-row");
-    }
-  }
-
-  // Open and close sidebar
-  function w3_open() {
-    document.getElementById("mySidebar").style.width = "100%";
-    document.getElementById("mySidebar").style.display = "block";
-  }
-
-  function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-  }
-  </script>
+   
 
 </body>
 </html>
