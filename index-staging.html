@@ -26,6 +26,8 @@
     {
       triplicateImagesForMobile();
     }
+
+    attachMouseOverFunctions();
   }
 </script>
 
@@ -175,41 +177,82 @@
     </div>
   </div>
 
-<div class="w3-row-padding mainsection studio-photos">
+
+  <script>
+    function attachMouseOverFunctions() 
+    {
+      var wideImages = document.getElementsByClassName('wideimage');
+      for (var i = 0, len = wideImages.length | 0; i < len; i = i + 1 | 0) 
+      {
+        wideImages[i].addEventListener('mouseenter', function() { replaceImages(this, wideImagesSrc);  }, false);
+      }
+    }
+    
+    var wideImagesSrc = [ "wide_0000_emptygaragecarparkingavailable.jpg",
+                          "wide_0001_luncharea.jpg",
+                          "wide_0002_availableteamarea.jpg",
+                          "wide_0003_coffeemachineandgrinder.jpg",
+                          "wide_0004_rooftopseating.jpg",
+                          "wide_0005_yournewdesk.jpg"];
+
+    function replaceImages(imgToReplace, listOfImages)
+    {
+      var oldUrl = imgToReplace.src;
+      var newSrc = "images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
+      var finished = false;
+      alert (window.location.origin + "     \n| url: " + oldUrl + "       \n| newSrc: " + (window.location.origin + newSrc));
+      var i = 0;
+      while (finished == false && i < 10)
+      {
+        i = i + 1;
+        if ((window.location.origin + newSrc) != oldUrl)
+        {
+          imgToReplace.src = newSrc;
+          finished = true;
+        }
+        else
+        {
+          newSrc = "images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
+        }
+      }
+      alert(i);
+    }
+
+  </script>
+  <div class="w3-row-padding mainsection studio-photos">
     <!-- Photo Grid widescreen -->
     <div class="w3-third widescreen-only">
       
-      <img src="images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img src="images/wide_0002_availableteamarea.jpg" />
-      <img src="images/tall_0003_bikestorage.jpg" />
+      <img class="tallimage" src="images/tall_0009_secondfloordeskwithwindows.jpg" />
+      <img class="wideimage" src="images/wide_0002_availableteamarea.jpg" />
+      <img class="tallimage" src="images/tall_0003_bikestorage.jpg" />
     </div>
 
     <div class="w3-third widescreen-only">
-      <img src="images/tall_0001_firstfloordesk.jpg" />
-      <img src="images/tall_0004_espressocoffeemachine.jpg" />
-      <img src="images/wide_0000_emptygaragecarparkingavailable.jpg" />
+      <img class="tallimage" src="images/tall_0001_firstfloordesk.jpg" />
+      <img class="tallimage" src="images/tall_0004_espressocoffeemachine.jpg" />
+      <img class="wideimage" src="images/wide_0000_emptygaragecarparkingavailable.jpg" />
     </div>
 
     <div class="w3-third widescreen-only">
-      <img src="images/tall_0005_secondfloordeskview.jpg" />
-      <img src="images/wide_0004_rooftopseating.jpg" />
-      <img src="images/tall_0008_plentyofplants.jpg" />
+      <img class="tallimage" src="images/tall_0005_secondfloordeskview.jpg" />
+      <img class="wideimage" src="images/wide_0004_rooftopseating.jpg" />
+      <img class="tallimage" src="images/tall_0008_plentyofplants.jpg" />
     </div>
 
     <!-- Photo Grid thinscreen -->
     <div class="w3-third thinscreen-only">
-      <img src="images/tall_0000_rooftopskylineview.jpg" />
-      <img src="images/wide_0005_yournewdesk.jpg" />
-      <img src="images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img src="images/wide_0001_luncharea.jpg" />
+      <img class="tallimage" src="images/tall_0000_rooftopskylineview.jpg" />
+      <img class="wideimage" src="images/wide_0005_yournewdesk.jpg" />
+      <img class="tallimage" src="images/tall_0009_secondfloordeskwithwindows.jpg" />
+      <img class="wideimage" src="images/wide_0001_luncharea.jpg" />
     </div>
     
     <div class="w3-third thinscreen-only">
-      <img src="images/tall_0002_meetingtable.jpg" />
-      <img src="images/tall_0005_secondfloordeskview.jpg" />
-      <img src="images/wide_0004_rooftopseating.jpg" />
-      <img src="images/tall_0006_kitchenwithdishwasherandseating.jpg" />
-      <!--<img src="images/tall_0004_espressocoffeemachine.jpg" /> ONE LESS IMAGE-->
+      <img class="tallimage" src="images/tall_0002_meetingtable.jpg" />
+      <img class="tallimage" src="images/tall_0005_secondfloordeskview.jpg" />
+      <img class="wideimage" src="images/wide_0004_rooftopseating.jpg" />
+      <img class="tallimage" src="images/tall_0006_kitchenwithdishwasherandseating.jpg" />
     </div>
   </div>
   
