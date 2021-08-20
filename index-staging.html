@@ -35,17 +35,33 @@
     padding-top: 32px;
     padding-bottom: 32px;  
   }
-  div.contactbutton
-  {
-    background-color: #eb7900;
-    border-radius: 7pt;
-    margin-left: auto;
+  .contactbutton {
+    height: 2cm;
+    width: 7cm;
     margin-right: auto;
-    margin-top:20pt;
-    width: 200pt;
-    display: table;
-    height: 46pt;
-    text-align: center;
+    margin-left: auto;
+    border-radius: 10px;
+    background: linear-gradient(48deg, rgba(223,103,28,1) 0%, rgba(254,153,23,1) 21%, rgb(250, 162, 47) 28%, rgb(252, 158, 34) 35%, rgba(236,75,0,1) 100%);
+    background-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    animation: colorChange 1.5s infinite ease-in-out alternate;
+  }
+  @keyframes colorChange      { from  { background-size: 100%;   } 
+                                to    { background-size: 180%;  } }
+  @keyframes colorChangeLarge { from  { background-size: 100%;   } 
+                                to    { background-size: 900%;  } }
+  .contactbutton:hover
+  {
+    transform: scale(1.089) rotate(0.5deg); 
+    border: 2px solid #e45f2e;
+    /* animation: colorChangeLarge 1s inifinite ease normal; */
+    background: linear-gradient(48deg, rgb(172, 77, 18) 0%, rgba(254,153,23,1) 10%, rgb(228, 193, 147) 17%, rgba(255,155,23,1) 20%, rgb(194, 62, 0) 100%);
+    animation: colorChangeLarge .5s 1 ease normal;
+    animation-fill-mode: both;  /* none forwards backwards both initial inherit. The animation-fill-mode property specifies a style for the element when the animation is not playing (before it starts, after it ends, or both). */
   }
   div.contactbutton span 
   {
@@ -56,6 +72,12 @@
   div.contactbutton p 
   {
     text-decoration: underline;
+    font-size: 12pt;
+  }
+  div.contactbutton:hover p
+  {
+    text-decoration: underline;
+    font-size: 14pt;
   }
   .w3-row-padding img 
   {
@@ -148,21 +170,21 @@ tall_0003_bikestorage.jpg-->
     <!-- Photo Grid widescreen -->
     <div class="w3-third widescreen-only">
       
-      <img src="images/tall_0004_espressocoffeemachine.jpg" />
-      <img src="images/tall_0000_rooftopskylineview.jpg" />
+      <img src="images/tall_0009_secondfloordeskwithwindows.jpg" />
       <img src="images/wide_0002_availableteamarea.jpg" />
+      <img src="images/tall_0003_bikestorage.jpg" />
     </div>
 
     <div class="w3-third widescreen-only">
-      <img src="images/tall_0006_kitchenwithdishwasherandseating.jpg" />
-      <img src="images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img src="images/wide_0005_yournewdesk.jpg" />
+      <img src="images/tall_0001_firstfloordesk.jpg" />
+      <img src="images/tall_0004_espressocoffeemachine.jpg" />
+      <img src="images/wide_0000_emptygaragecarparkingavailable.jpg" />
     </div>
 
     <div class="w3-third widescreen-only">
       <img src="images/tall_0005_secondfloordeskview.jpg" />
       <img src="images/wide_0004_rooftopseating.jpg" />
-      <img src="images/tall_0005_secondfloordeskview.jpg" />
+      <img src="images/tall_0008_plentyofplants.jpg" />
     </div>
 
     <!-- Photo Grid thinscreen -->
@@ -229,6 +251,11 @@ tall_0003_bikestorage.jpg-->
     margin-right: 24px;
   } 
 
+  .imagelist img:hover
+  {
+    transform: scale(1.089) rotate(0.5deg); 
+  }
+
 </style>
 
   <div class="w3-center mainsection">
@@ -262,7 +289,7 @@ tall_0003_bikestorage.jpg-->
     </div>
     <div class="imagelist">
       <a href="https://www.superentertainment.com/" title="Super Entertainment"></a><img src="images/studios/super-entertainment.png" /></a>
-      <a href="http://thevoxelagents.com/" title="The Voxel Agents"></a><img src="http://thevoxelagents.com/logos/Circle_400w.png" /></a>
+      <a href="http://thevoxelagents.com/" title="The Voxel Agents"></a><img src="http://thevoxelagents.com/logos/Rectangle_1600w.png" /></a>
     </div>
   </div>
 
