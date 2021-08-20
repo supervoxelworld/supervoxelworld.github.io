@@ -186,8 +186,23 @@
       {
         wideImages[i].addEventListener('mouseenter', function() { replaceImages(this, wideImagesSrc);  }, false);
       }
+      var tallimage = document.getElementsByClassName('tallimage');
+      for (var i = 0, len = wideImages.length | 0; i < len; i = i + 1 | 0) 
+      {
+        tallimage[i].addEventListener('mouseenter', function() { replaceImages(this, tallImagesSrc);  }, false);
+      }
     }
-    
+    var tallImagesSrc = [  "tall_0000_rooftopskylineview.jpg",
+                          "tall_0001_firstfloordesk.jpg",
+                          "tall_0002_meetingtable.jpg",
+                          "tall_0003_bikestorage.jpg",
+                          "tall_0004_espressocoffeemachine.jpg",
+                          "tall_0005_secondfloordeskview.jpg",
+                          "tall_0006_kitchenwithdishwasherandseating.jpg",
+                          "tall_0007_nicelylitsecondfloordesk.jpg",
+                          "tall_0008_plentyofplants.jpg",
+                          "tall_0009_secondfloordeskwithwindows.jpg"];
+
     var wideImagesSrc = [ "wide_0000_emptygaragecarparkingavailable.jpg",
                           "wide_0001_luncharea.jpg",
                           "wide_0002_availableteamarea.jpg",
@@ -200,7 +215,6 @@
       var oldUrl = imgToReplace.src;
       var newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
       var finished = false;
-      alert (window.location.origin + "     \n| url: " + oldUrl + "       \n| newSrc: " + (window.location.origin + newSrc));
       var i = 0;
       while (finished == false && i < 10)
       {
@@ -215,7 +229,6 @@
           newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
         }
       }
-      alert(i);
     }
 
   </script>
