@@ -198,7 +198,7 @@
     function replaceImages(imgToReplace, listOfImages)
     {
       var oldUrl = imgToReplace.src;
-      var newSrc = "images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
+      var newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
       var finished = false;
       alert (window.location.origin + "     \n| url: " + oldUrl + "       \n| newSrc: " + (window.location.origin + newSrc));
       var i = 0;
@@ -212,7 +212,7 @@
         }
         else
         {
-          newSrc = "images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
+          newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
         }
       }
       alert(i);
