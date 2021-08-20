@@ -14,13 +14,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet"> 
 
-<style>
+<script src="https://unpkg.com/platform-detect"></script>
+<script>
+  function initialiseWebpage()
+  {
+    var platform = window['platform-detect'];
+    if( platform.ios == true 
+        || platform.android == true 
+        // || platform.macos == true  // DEBUG ONLY
+        && window.innerWidth < 900 ) 
+    {
+      triplicateImagesForMobile();
+    }
+  }
+</script>
 
+<style>
   img 
   {
     margin-bottom: -7px;
   }
-
+  .linkedimages img:hover
+  {
+    transform: scale(1.089) rotate(0.5deg); 
+  }
   div.w3-content
   {
     max-width: 1200px;
@@ -58,10 +75,9 @@
   {
     transform: scale(1.089) rotate(0.5deg); 
     border: 2px solid #e45f2e;
-    /* animation: colorChangeLarge 1s inifinite ease normal; */
     background: linear-gradient(48deg, rgb(172, 77, 18) 0%, rgba(254,153,23,1) 10%, rgb(228, 193, 147) 17%, rgba(255,155,23,1) 20%, rgb(194, 62, 0) 100%);
     animation: colorChangeLarge .5s 1 ease normal;
-    animation-fill-mode: both;  /* none forwards backwards both initial inherit. The animation-fill-mode property specifies a style for the element when the animation is not playing (before it starts, after it ends, or both). */
+    animation-fill-mode: both;
   }
   div.contactbutton span 
   {
@@ -87,8 +103,7 @@
   {
     width:100%;
   }
-
-  .thinscreen-only, .widescreen-only { display: none; }
+  .thinscreen-only { display: none;  }
   .widescreen-only { display: none; }
   @media (max-width:900px)
   {
@@ -98,7 +113,6 @@
   {
     .widescreen-only  {  display:block;   }
   }
-
   div#panos, div#panos img
   {
     width:100%; 
@@ -116,14 +130,10 @@
     left: calc(-130px / 2);
     position: relative;
   }
-
-
-
 </style>
 
 
-
-<body>
+<body onload="initialiseWebpage()">
 
   <!-- Sidebar -->
   <nav class="w3-sidebar w3-black w3-animate-top w3-xxlarge" style="display:none;padding-top:150px" id="mySidebar">
@@ -134,7 +144,6 @@
       <p><a href="mailto:info@supervoxel.world" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Get in touch: info@supervoxel.world</a></p>
     </div>
   </nav>
-
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-content">
@@ -156,15 +165,6 @@
       </div>
     </div>
   </div>
-
-<!--
-
-tall_0007_nicelylitsecondfloordesk.jpg
-wide_0003_coffeemachineandgrinder.jpg
-wide_0001_luncharea.jpg
-tall_0008_plentyofplants.jpg
-tall_0003_bikestorage.jpg-->
-
 
 <div class="w3-row-padding mainsection studio-photos">
     <!-- Photo Grid widescreen -->
@@ -235,64 +235,175 @@ tall_0003_bikestorage.jpg-->
   </div>
 
 
-<style>
-    div.imagelist
+<!-- GAMES -->
+<script>
+function triplicateImagesForMobile() 
+{
+  var containers = document.getElementsByClassName('tripleme');
+
+  for (var i = 0, len = containers.length | 0; 
+        i < len; 
+        i = i + 1 | 0) 
   {
-    width: auto;
+      var children = containers[i].childNodes;
+      var numChildren = children.length | 0;
+      // duplicate 
+      for (var j = 0; 
+        j < numChildren; 
+        j = j + 1)
+      {
+        var child = children[j];
+        var cln = child.cloneNode(true);
+        containers[i].appendChild(cln);
+      }
+      // triplcate 
+      for (var j = 0; 
+        j < numChildren; 
+        j = j + 1)
+      {
+        var child = children[j];
+        var cln = child.cloneNode(true);
+        containers[i].appendChild(cln);
+      }
+  }
+}
+</script>
+
+<style>
+  @media (min-width:900px)
+  {
+    div.imagelist
+    {
+      left:-12px;
+      width: auto;
+      height: 180px;
+      overflow-x: visible;
+      overflow-y: hidden;
+      white-space: nowrap;
+      margin-bottom: 24px;
+    }
+    div.imagelist img
+    {
+      height:100%;
+      margin-right: 24px;
+    }
+  }
+  @media (max-width:900px)
+  {
+    .imagelist 
+    {
+      width: 100vw;
+      height: 180px;
+      margin-bottom: 24px;
+    }
+    .scrollingcontainer
+    {
+      margin:0px;
+      position: absolute;
+      left: 0;
+      width: fit-content;
+      height: 180px;
+      font-size:0;
+      overflow-x: visible;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+    .scrollright  { animation: marqueescrollright 12s linear infinite;  }
+    .scrollleft   { animation: marqueescrollleft 12s linear infinite;  }
+  
+    @keyframes marqueescrollright 
+    {
+      from  { transform: translateX(-33.33333%);    }
+      to    { transform: translateX(0%);   }
+    }
+    
+    @keyframes marqueescrollleft 
+    {
+      from  { transform: translateX(0%);  }
+      to    { transform: translateX(-33.33333%);   }
+    }
+  }
+  
+  .imagediv
+  {
     height: 180px;
-    overflow-x: visible;
-    overflow-y: hidden;
-    white-space: nowrap;
-    margin-bottom: 24px;
+    display: inline-block;
+    margin-right: 0px;
   }
   div.imagelist img
   {
     height:100%;
     margin-right: 24px;
-  } 
-
-  .imagelist img:hover
-  {
-    transform: scale(1.089) rotate(0.5deg); 
   }
 
 </style>
 
-  <div class="w3-center mainsection">
+  <div class="w3-center mainsection linkedimages">
     <h2>Games Made Here</h2>
     <p>Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
     <div class="imagelist">
-      <a href="https://www.henryshouse.com.au/games" title="Kardboard Kings"><img src="images/games/kardboard_kings.jpg" /></a>
-      <a href="https://feed.games/negative-nancy" title="Negative Nancy"><img src="images/games/negative-nancy.jpg" /></a>
-      <a href="https://nightschoolstudio.com/oxenfree-ii/" title="Oxenfree II - Lost Signals"><img src="images/games/oxenfree-ii-lostsignals.jpg" /></a>
+      <div class="scrollingcontainer scrollleft tripleme">
+        <div class="imagediv"><a href="https://www.henryshouse.com.au/games" title="Kardboard Kings"><img src="images/games/kardboard_kings.jpg" /></a></div>
+        <div class="imagediv"><a href="https://feed.games/negative-nancy" title="Negative Nancy"><img src="images/games/negative-nancy.jpg" /></a></div>
+        <div class="imagediv"><a href="https://nightschoolstudio.com/oxenfree-ii/" title="Oxenfree II - Lost Signals"><img src="images/games/oxenfree-ii-lostsignals.jpg" /></a></div>
+      </div>
     </div>
     <div class="imagelist">
-      <a href="http://www.mueslibros.com/spearbound" title="Spearbound"><img src="images/games/spearbound.jpg" /></a>
-      <a href="http://puzzleretreat.com" title="Puzzle Retreat"><img src="images/games/puzzle-retreat.jpg" /></a>
-      <a href="https://www.spinrhythmgame.com/" title="Spin Rhythm XD"><img src="images/games/spin-rhythm-xd.jpg" /></a>
+      <div class="scrollingcontainer scrollright tripleme">
+        <div class="imagediv"><a href="http://www.mueslibros.com/spearbound" title="Spearbound"><img src="images/games/spearbound.jpg" /></a></div>
+        <div class="imagediv"><a href="http://puzzleretreat.com" title="Puzzle Retreat"><img src="images/games/puzzle-retreat.jpg" /></a></div>
+        <div class="imagediv"><a href="https://www.spinrhythmgame.com/" title="Spin Rhythm XD"><img src="images/games/spin-rhythm-xd.jpg" /></a></div>
+      </div>
     </div>
     <div class="imagelist">
-      <a href="http://steppypants.com.au/press/index.html" title="Steppy Pants"><img src="images/games/steppy-pants.jpg" /></a>
-      <a href="http://trainconductorworld.com/" title="Train Conductor World"><img src="images/games/train-onductor-world.png" /></a>
-      <a href="http://thegardensbetween.com/" title="The Gardens Between"><img src="images/games/the-gardens-between.jpg" /></a>
+      <div class="scrollingcontainer scrollleft tripleme">
+        <div class="imagediv"><a href="http://steppypants.com.au/press/index.html" title="Steppy Pants"><img src="images/games/steppy-pants.jpg" /></a></div>
+        <div class="imagediv"><a href="http://trainconductorworld.com/" title="Train Conductor World"><img src="images/games/train-onductor-world.png" /></a></div>
+        <div class="imagediv"><a href="http://thegardensbetween.com/" title="The Gardens Between"><img src="images/games/the-gardens-between.jpg" /></a></div>
+      </div>
     </div>
   </div>
 
-
-  <div class="w3-center mainsection">
+<!-- STUDIOS -->
+  <style>
+    .studioslist
+    {
+      max-width: 100vw;
+      width: auto;
+      float:center;
+      height: auto;
+      left:-12px;
+      white-space: wrap;
+    } 
+    .studio
+    {
+      height: 130px;
+      display: inline-block;
+      max-height: 130px;
+      margin-right: 24px;
+      margin-bottom: 24px;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+    .studio img
+    {
+      height:100%;
+    }
+  </style>
+  <div class="w3-center mainsection linkedimages">
     <h2>Devs Working Here</h2>
     <p>Sierra Asher | Oscar Brittain | Matt Davis | Henrik Pettersson | Soft Science | Super Spin Digital | The Voxel Agents</p>
-    <div class="imagelist">
-      <a href="https://feed.games/" title="Feed Games"><img src="images/studios/feed-logo.gif" /></a>
-      <a href="https://www.henryshouse.com.au/" title="Henry's House"></a><img src="images/studios/henrys-house.png" /></a>
-      <a href="http://www.mueslibros.com" title="Muesli Bros"></a><img src="images/studios/muesli-bros.png" /></a>
-    </div>
-    <div class="imagelist">
-      <a href="https://www.superentertainment.com/" title="Super Entertainment"></a><img src="images/studios/super-entertainment.png" /></a>
-      <a href="http://thevoxelagents.com/" title="The Voxel Agents"></a><img src="http://thevoxelagents.com/logos/Rectangle_1600w.png" /></a>
+    <div class="studioslist">
+      <div class="studio"><a href="https://feed.games/" title="Feed Games"><img src="images/studios/feed-logo.gif" /></a></div>
+      <div class="studio"><a href="https://www.henryshouse.com.au/" title="Henry's House"></a><img src="images/studios/henrys-house.png" /></a></div>
+      <div class="studio"><a href="http://www.mueslibros.com" title="Muesli Bros"></a><img src="images/studios/muesli-bros.png" /></a></div>
+      <div class="studio"><a href="https://www.superentertainment.com/" title="Super Entertainment"></a><img src="images/studios/super-entertainment.png" /></a></div>
+      <div class="studio"><a href="http://thevoxelagents.com/" title="The Voxel Agents"></a><img src="http://thevoxelagents.com/logos/Rectangle_1600w.png" /></a></div>
     </div>
   </div>
 
+
+    <div class="w3-clear"></div>
 
   <!-- End Page Content -->
   </div>
@@ -320,7 +431,7 @@ tall_0003_bikestorage.jpg-->
       <br />By Steve, Simon and Matt
       <br />Est. 2020</p>
   </footer>
-   
+   */
   <script>
   // Toggle grid padding
   function myFunction() {
