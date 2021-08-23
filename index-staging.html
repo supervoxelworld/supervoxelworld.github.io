@@ -16,6 +16,14 @@
 
 <script src="https://unpkg.com/platform-detect"></script>
 <script>
+  function joinTwoHTMLCollections(w, t)
+  {
+    var returnArray = new Array(w.length + t.length);
+    var i = 0;
+    for(i; i < w.length ; i++)              { returnArray[i] = w.item(i);  }
+    for(var k=0; k < t.length ; i++, k++)   { returnArray[i] = t.item(k);  }
+    return returnArray;
+  }
   function initialiseWebpage()
   {
     var platform = window['platform-detect'];
@@ -26,8 +34,7 @@
     {
       triplicateImagesForMobile();
     }
-
-    attachMouseOverFunctions();
+    setupReplaceImages();
   }
 </script>
 
@@ -118,7 +125,7 @@
   }
   @media (min-width:900px)
   {
-    .widescreen-only  {  display:block;   }
+    .widescreen-only {  display:block;   }
   }
   div#panos, div#panos img
   {
@@ -179,93 +186,93 @@
 
 
   <script>
-    function attachMouseOverFunctions() 
-    {
-      var wideImages = document.getElementsByClassName('wideimage');
-      for (var i = 0, len = wideImages.length | 0; i < len; i = i + 1 | 0) 
-      {
-        wideImages[i].addEventListener('mouseenter', function() { replaceImages(this, wideImagesSrc);  }, false);
-      }
-      var tallimage = document.getElementsByClassName('tallimage');
-      for (var i = 0, len = wideImages.length | 0; i < len; i = i + 1 | 0) 
-      {
-        tallimage[i].addEventListener('mouseenter', function() { replaceImages(this, tallImagesSrc);  }, false);
-      }
-    }
-    var tallImagesSrc = [  "tall_0000_rooftopskylineview.jpg",
+    // all images sources
+    var tallImagesSrc = [ "tall_0000_rooftopskylineview.jpg",
                           "tall_0001_firstfloordesk.jpg",
-                          "tall_0002_meetingtable.jpg",
-                          "tall_0003_bikestorage.jpg",
-                          "tall_0004_espressocoffeemachine.jpg",
-                          "tall_0005_secondfloordeskview.jpg",
                           "tall_0006_kitchenwithdishwasherandseating.jpg",
                           "tall_0007_nicelylitsecondfloordesk.jpg",
+                          "tall_0002_meetingtable.jpg",
+                          "tall_0004_espressocoffeemachine.jpg",
+                          "tall_0005_secondfloordeskview.jpg",
                           "tall_0008_plentyofplants.jpg",
+                          "tall_0003_bikestorage.jpg",
                           "tall_0009_secondfloordeskwithwindows.jpg"];
 
-    var wideImagesSrc = [ "wide_0000_emptygaragecarparkingavailable.jpg",
+    var wideImagesSrc = [ "wide_0005_yournewdesk.jpg",
                           "wide_0001_luncharea.jpg",
-                          "wide_0002_availableteamarea.jpg",
                           "wide_0003_coffeemachineandgrinder.jpg",
+                          "wide_0002_availableteamarea.jpg",
                           "wide_0004_rooftopseating.jpg",
-                          "wide_0005_yournewdesk.jpg"];
+                          "wide_0000_emptygaragecarparkingavailable.jpg"];
+    
+    // variables
+    var nextIndexToChange = 0;
+    var nextWideSrcToPull = 0;
+    var nextTallSrcToPull = 0;
+    var allImages;
 
-    function replaceImages(imgToReplace, listOfImages)
+    function setupReplaceImages()
     {
-      var oldUrl = imgToReplace.src;
-      var newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
-      var finished = false;
-      var i = 0;
-      while (finished == false && i < 10)
+      var widescreenstudioimages = document.getElementById('widescreenstudioimages');
+      allImages = joinTwoHTMLCollections(widescreenstudioimages.getElementsByClassName('tallimage'),  widescreenstudioimages.getElementsByClassName('wideimage'));
+      setTimeout(replaceImage, 3000);
+    }
+
+    function replaceImage()
+    {
+      var imgToReplace = allImages[nextIndexToChange];
+      nextIndexToChange = (nextIndexToChange == allImages.length - 1) ? 0 : (nextIndexToChange + 1);
+      var newSrc;
+
+      if (imgToReplace.className == "tallimage")
       {
-        i = i + 1;
-        if ((window.location.origin + newSrc) != oldUrl)
-        {
-          imgToReplace.src = newSrc;
-          finished = true;
-        }
-        else
-        {
-          newSrc = "/images/" +listOfImages[Math.floor(Math.random() * listOfImages.length)];
-        }
+        newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
+        nextTallSrcToPull = (nextTallSrcToPull == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull+1;
       }
+      else
+      {
+        newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull];
+        nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
+      }
+      
+      imgToReplace.src = newSrc;
+      setTimeout(replaceImage, Math.random() * 2000);
     }
 
   </script>
-  <div class="w3-row-padding mainsection studio-photos">
-    <!-- Photo Grid widescreen -->
-    <div class="w3-third widescreen-only">
-      
-      <img class="tallimage" src="images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img class="wideimage" src="images/wide_0002_availableteamarea.jpg" />
-      <img class="tallimage" src="images/tall_0003_bikestorage.jpg" />
+  <!-- Photo Grid widescreen -->
+  <div id="widescreenstudioimages" class="w3-row-padding mainsection studio-photos widescreen-only">
+    <div class="w3-third">
+      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
+      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" />
+      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" />
     </div>
-
-    <div class="w3-third widescreen-only">
-      <img class="tallimage" src="images/tall_0001_firstfloordesk.jpg" />
-      <img class="tallimage" src="images/tall_0004_espressocoffeemachine.jpg" />
-      <img class="wideimage" src="images/wide_0000_emptygaragecarparkingavailable.jpg" />
+    <div class="w3-third">
+      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" />
+      <img class="tallimage image2" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" />
+      <img class="wideimage image3" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" />
     </div>
-
-    <div class="w3-third widescreen-only">
-      <img class="tallimage" src="images/tall_0005_secondfloordeskview.jpg" />
-      <img class="wideimage" src="images/wide_0004_rooftopseating.jpg" />
-      <img class="tallimage" src="images/tall_0008_plentyofplants.jpg" />
+    <div class="w3-third">
+      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
+      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
+      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0008_plentyofplants.jpg" />
     </div>
+  </div>
 
-    <!-- Photo Grid thinscreen -->
-    <div class="w3-third thinscreen-only">
-      <img class="tallimage" src="images/tall_0000_rooftopskylineview.jpg" />
-      <img class="wideimage" src="images/wide_0005_yournewdesk.jpg" />
-      <img class="tallimage" src="images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img class="wideimage" src="images/wide_0001_luncharea.jpg" />
+  <!-- Photo Grid thinscreen -->
+  <div id="thinscreenstudioimages" class="w3-row-padding mainsection studio-photos thinscreen-only">
+    <div class="w3-third">
+      <img class="tallimage" src="http://supervoxel.world/images/tall_0000_rooftopskylineview.jpg" />
+      <img class="wideimage" src="http://supervoxel.world/images/wide_0005_yournewdesk.jpg" />
+      <img class="tallimage" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
+      <img class="wideimage" src="http://supervoxel.world/images/wide_0001_luncharea.jpg" />
     </div>
     
-    <div class="w3-third thinscreen-only">
-      <img class="tallimage" src="images/tall_0002_meetingtable.jpg" />
-      <img class="tallimage" src="images/tall_0005_secondfloordeskview.jpg" />
-      <img class="wideimage" src="images/wide_0004_rooftopseating.jpg" />
-      <img class="tallimage" src="images/tall_0006_kitchenwithdishwasherandseating.jpg" />
+    <div class="w3-third">
+      <img class="tallimage" src="http://supervoxel.world/images/tall_0002_meetingtable.jpg" />
+      <img class="tallimage" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
+      <img class="wideimage" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
+      <img class="tallimage" src="http://supervoxel.world/images/tall_0006_kitchenwithdishwasherandseating.jpg" />
     </div>
   </div>
   
