@@ -51,6 +51,7 @@
   {
     max-width: 1200px;
   }
+  h1, h2, h3 { text-rendering: optimizeLegibility; }
   h1
   {
     font-variation-settings: 'wght' 625;
@@ -60,6 +61,17 @@
   { 
     margin-left: 5vw;
     margin-right: 5vw;
+  }
+  @media only screen and (-moz-max-device-pixel-ratio: 1.5), 
+       only screen and (-o-max-device-pixel-ratio: 1.5/1), 
+       only screen and (-webkit-max-device-pixel-ratio: 1.5), 
+       only screen and (max-resolution: 1.5dppx),
+       only screen and (max-device-pixel-ratio: 1.5)
+  {
+    p {
+      font-variation-settings: 'wght' 6250;
+      font-weight: 650;
+    }
   }
   div.mainsection
   {
@@ -72,7 +84,7 @@
     margin-right: auto;
     margin-left: auto;
     border-radius: 10px;
-    background: linear-gradient(48deg, rgba(223,103,28,1) 0%, rgba(254,153,23,1) 21%, rgb(250, 162, 47) 28%, rgb(252, 158, 34) 35%, rgba(236,75,0,1) 100%);
+    background: linear-gradient(48deg, rgba(223,103,28,1) 0%, rgb(245, 131, 9) 21%, rgb(250, 162, 47) 28%, rgb(252, 131, 12) 35%, rgba(236,75,0,1) 100%);
     background-size: 100%;
     display: flex;
     justify-content: center;
@@ -82,14 +94,14 @@
     animation: colorChange 1.5s infinite ease-in-out alternate;
   }
   @keyframes colorChange      { from  { background-size: 100%;   } 
-                                to    { background-size: 180%;  } }
-  @keyframes colorChangeLarge { from  { background-size: 100%;   } 
-                                to    { background-size: 900%;  } }
+                                to    { background-size: 220%;  } }
+  @keyframes colorChangeLarge { from  { background-size: 100%; border: 4px solid #e29072;  } 
+                                to    { background-size: 900%; border: 2px solid #a03007; } }
   .contactbutton:hover
   {
     transform: scale(1.089) rotate(0.5deg); 
-    border: 2px solid #e45f2e;
-    background: linear-gradient(48deg, rgb(172, 77, 18) 0%, rgba(254,153,23,1) 10%, rgb(228, 193, 147) 17%, rgba(255,155,23,1) 20%, rgb(194, 62, 0) 100%);
+    border: 2px solid #a03007;
+    background: linear-gradient(48deg, rgb(193, 94, 51) 0%, rgb(254, 123, 23) 10%, rgb(228, 193, 147) 17%, rgba(255,155,23,1) 20%, rgb(194, 45, 0) 100%);
     animation: colorChangeLarge .5s 1 ease normal;
     animation-fill-mode: both;
   }
@@ -104,10 +116,15 @@
     text-decoration: underline;
     font-size: 12pt;
   }
+  @keyframes labelSizeChange  { from  { font-size: 15pt;  color:#b34016;  } 
+                                to    { font-size: 14pt;  color:#852604;  } }
   div.contactbutton:hover p
   {
     text-decoration: underline;
     font-size: 14pt;
+    color:#6f1e01;
+    animation: labelSizeChange 1s 1 ease-out normal;
+    animation-fill-mode: normal;
   }
   .w3-row-padding img 
   {
