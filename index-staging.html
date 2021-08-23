@@ -144,23 +144,6 @@
   {
     .widescreen-only {  display:block;   }
   }
-  div#panos, div#panos img
-  {
-    width:100%; 
-    margin-left:0px; 
-    margin-right:0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-bottom: 24px;
-  }
-  div#panos
-  {
-    display:inline-block;
-    float:none;
-    width: calc(100% + 130px);
-    left: calc(-130px / 2);
-    position: relative;
-  }
   .textblock
   {
     margin-bottom: 42px;
@@ -250,15 +233,14 @@
     function setupReplaceImages()
     {
       var widescreenstudioimages = document.getElementById('widescreenstudioimages');
-      // allImages = joinTwoHTMLCollections(widescreenstudioimages.getElementsByClassName('tallimage'),  widescreenstudioimages.getElementsByClassName('wideimage'));
       image1s = widescreenstudioimages.getElementsByClassName('image1');
       image2s = widescreenstudioimages.getElementsByClassName('image2');
       image3s = widescreenstudioimages.getElementsByClassName('image3');
       setTimeout(replaceImage1, 1000);
     }
     
-    var shortTimer = 1600;
-    var longTimer = 2000;
+    var shortTimer = 160;
+    var longTimer = 3500;
     function replaceImage1()
     {
       var imgToReplace = image1s[nextIndexToChange];
@@ -366,6 +348,33 @@
     </div>
   </div>
 
+
+  <!-- STUDIO PANOS -->
+  <style>
+    div#panos, div#panos img
+    {
+      margin-left:0px; 
+      margin-right:0px;
+      margin-bottom: 24px;
+
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    div#panos
+    {
+      width:100%; 
+      max-width:100vw;
+      float:none;
+      position: relative;
+      display:inline-block;
+      overflow:hidden;
+    }
+    div#panos img
+    {
+      width: calc(100% + 130px);
+      left: calc(-130px / 2);
+    }
+  </style>
   <div id="panos" class="w3-col">
     <image src="images/panos_0000_privaterooftop.jpg" />
     <image src="images/panos_0001_secondfloor.jpg" />
@@ -477,7 +486,7 @@ function triplicateImagesForMobile()
 
 </style>
 
-  <div class="w3-center mainsection linkedimages">
+  <div class="w3-center mainsection linkedimages" style="position: relative; overflow: hidden;">
     <h2>Games Made Here</h2>
     <p class="textblock">Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
     <div class="imagelist">
