@@ -188,7 +188,6 @@
   <script>
     // all images sources
     var tallImagesSrc = [ "tall_0000_rooftopskylineview.jpg",
-                          "tall_0001_firstfloordesk.jpg",
                           "tall_0006_kitchenwithdishwasherandseating.jpg",
                           "tall_0007_nicelylitsecondfloordesk.jpg",
                           "tall_0002_meetingtable.jpg",
@@ -196,6 +195,7 @@
                           "tall_0005_secondfloordeskview.jpg",
                           "tall_0008_plentyofplants.jpg",
                           "tall_0003_bikestorage.jpg",
+                          "tall_0001_firstfloordesk.jpg",
                           "tall_0009_secondfloordeskwithwindows.jpg"];
 
     var wideImagesSrc = [ "wide_0005_yournewdesk.jpg",
@@ -205,38 +205,86 @@
                           "wide_0004_rooftopseating.jpg",
                           "wide_0000_emptygaragecarparkingavailable.jpg"];
     
+    function GetNextTallImage()
+    {
+      var newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
+      nextTallSrcToPull = (nextTallSrcToPull == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull+1;
+      return newSrc;
+    }
+    function GetNextWideImage()
+    {
+      newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull];
+      nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
+      return newSrc;
+    }
+
     // variables
     var nextIndexToChange = 0;
     var nextWideSrcToPull = 0;
     var nextTallSrcToPull = 0;
-    var allImages;
+    var image1s;
+    var image2s;
+    var image3s;
 
     function setupReplaceImages()
     {
       var widescreenstudioimages = document.getElementById('widescreenstudioimages');
-      allImages = joinTwoHTMLCollections(widescreenstudioimages.getElementsByClassName('tallimage'),  widescreenstudioimages.getElementsByClassName('wideimage'));
-      setTimeout(replaceImage, 3000);
+      // allImages = joinTwoHTMLCollections(widescreenstudioimages.getElementsByClassName('tallimage'),  widescreenstudioimages.getElementsByClassName('wideimage'));
+      image1s = widescreenstudioimages.getElementsByClassName('image1');
+      image2s = widescreenstudioimages.getElementsByClassName('image2');
+      image3s = widescreenstudioimages.getElementsByClassName('image3');
+      setTimeout(replaceImage1, 1000);
     }
-
-    function replaceImage()
+    
+    var shortTimer = 1600;
+    var longTimer = 2000;
+    function replaceImage1()
     {
-      var imgToReplace = allImages[nextIndexToChange];
-      nextIndexToChange = (nextIndexToChange == allImages.length - 1) ? 0 : (nextIndexToChange + 1);
-      var newSrc;
+      var imgToReplace = image1s[nextIndexToChange];
+      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
 
-      if (imgToReplace.className == "tallimage")
+      if (nextIndexToChange == image1s.length - 1)
       {
-        newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
-        nextTallSrcToPull = (nextTallSrcToPull == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull+1;
+        nextIndexToChange = 0;
+        setTimeout(replaceImage2, shortTimer);
       }
       else
       {
-        newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull];
-        nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
+        nextIndexToChange++;
+        setTimeout(replaceImage1, shortTimer);
       }
+    }
+    function replaceImage2()
+    {
+      var imgToReplace = image2s[nextIndexToChange];
+      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
       
-      imgToReplace.src = newSrc;
-      setTimeout(replaceImage, Math.random() * 2000);
+      if (nextIndexToChange == image2s.length - 1)
+      {
+        nextIndexToChange = 0;
+        setTimeout(replaceImage3, shortTimer);
+      }
+      else
+      {
+        nextIndexToChange++;
+        setTimeout(replaceImage2, shortTimer);
+      }
+    }
+    function replaceImage3()
+    {
+      var imgToReplace = image3s[nextIndexToChange];
+      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
+      
+      if (nextIndexToChange == image3s.length - 1)
+      {
+        nextIndexToChange = 0;
+        setTimeout(replaceImage1, longTimer);
+      }
+      else
+      {
+        nextIndexToChange++;
+        setTimeout(replaceImage3, shortTimer);
+      }
     }
 
   </script>
@@ -262,17 +310,15 @@
   <!-- Photo Grid thinscreen -->
   <div id="thinscreenstudioimages" class="w3-row-padding mainsection studio-photos thinscreen-only">
     <div class="w3-third">
-      <img class="tallimage" src="http://supervoxel.world/images/tall_0000_rooftopskylineview.jpg" />
-      <img class="wideimage" src="http://supervoxel.world/images/wide_0005_yournewdesk.jpg" />
-      <img class="tallimage" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img class="wideimage" src="http://supervoxel.world/images/wide_0001_luncharea.jpg" />
+      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0000_rooftopskylineview.jpg" />
+      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0005_yournewdesk.jpg" />
+      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
     </div>
     
     <div class="w3-third">
-      <img class="tallimage" src="http://supervoxel.world/images/tall_0002_meetingtable.jpg" />
-      <img class="tallimage" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
-      <img class="wideimage" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
-      <img class="tallimage" src="http://supervoxel.world/images/tall_0006_kitchenwithdishwasherandseating.jpg" />
+      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0002_meetingtable.jpg" />
+      <img class="tallimage image2" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
+      <img class="wideimage image3" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
     </div>
   </div>
   
