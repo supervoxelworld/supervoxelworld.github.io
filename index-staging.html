@@ -26,14 +26,7 @@
   }
   function initialiseWebpage()
   {
-    var platform = window['platform-detect'];
-    if( platform.ios == true 
-        || platform.android == true 
-        // || platform.macos == true  // DEBUG ONLY
-        && window.innerWidth < 900 ) 
-    {
-      triplicateImagesForMobile();
-    }
+    triplicateImagesForMobile();
     setupReplaceImages();
   }
 </script>
