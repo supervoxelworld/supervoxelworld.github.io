@@ -422,9 +422,7 @@
     }
   }
   </script>
-
   <style>
-  
     .imagelist 
     {
       width: 100vw;
@@ -469,10 +467,15 @@
       height:100%;
       margin-right: 24px;
     }
+    /* HACK FOR SAFARI BUG: https://stackoverflow.com/questions/9807620/ipad-safari-scrolling-causes-html-elements-to-disappear-and-reappear-with-a-dela */
+    body * 
+    {
+      -webkit-transform: translate3d(0, 0, 0)
+    }
 
   </style>
 
-    <div class="w3-center mainsection linkedimages">
+    <div class="w3-center mainsection linkedimages" style="position: relative; overflow: hidden;">
       <h2>Devs Here Work On</h2>
       <p class="textblock">Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
       <div class="imagelist">
