@@ -26,7 +26,7 @@
   }
   function initialiseWebpage()
   {
-    triplicateImagesForMobile();
+    setupMovingImages();
     setupReplaceImages();
   }
 </script>
@@ -138,7 +138,11 @@
       <i class="fa fa-remove"></i>
     </a>
     <div class="w3-bar-block w3-center">
-      <p><a href="mailto:info@supervoxel.world" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Get in touch: info@supervoxel.world</a></p>
+      <p>Get in touch: <br />
+      <a href="mailto:info@supervoxel.world" class="w3-bar-item w3-button w3-text-grey w3-hover-black">info@supervoxel.world</a></p>
+
+      <p>Come Visit:<br />
+      <a href="javascript:void(0)" onclick="GoToMap()" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Get Directions</a></p>
     </div>
   </nav>
 
@@ -167,27 +171,31 @@
 
   <script>
     // all images sources
-    var tallImagesSrc = [ "tall_0000_rooftopskylineview.jpg",
+    var tallImagesSrc = [ 
+      "tall_0007_nicelylitsecondfloordesk.jpg",
+                          "tall_0000_rooftopskylineview.jpg",
                           "tall_0006_kitchenwithdishwasherandseating.jpg",
-                          "tall_0007_nicelylitsecondfloordesk.jpg",
-                          "tall_0002_meetingtable.jpg",
-                          "tall_0010_comfychairdesk.jpg",
-                          "tall_0011_deskplantwindows.jpg",
                           "tall_0004_espressocoffeemachine.jpg",
+                          "tall_0002_meetingtable.jpg",
+                          "tall_0011_deskplantwindows.jpg",
+                          "tall_0010_comfychairdesk.jpg",
                           "tall_0005_secondfloordeskview.jpg",
                           "tall_0008_plentyofplants.jpg",
                           "tall_0003_bikestorage.jpg",
                           "tall_0001_firstfloordesk.jpg",
-                          "tall_0009_secondfloordeskwithwindows.jpg"];
+                          "tall_0009_secondfloordeskwithwindows.jpg"
+                        ];
 
-    var wideImagesSrc = [ "wide_0005_yournewdesk.jpg",
+    var wideImagesSrc = [ 
+                          "wide_0005_yournewdesk.jpg",
                           "wide_0001_luncharea.jpg",
                           "wide_0003_coffeemachineandgrinder.jpg",
                           "wide_0006_couch.jpg",
                           "wide_0007_twodesks.jpg",
                           "wide_0002_availableteamarea.jpg",
                           "wide_0004_rooftopseating.jpg",
-                          "wide_0000_emptygaragecarparkingavailable.jpg"];
+                          "wide_0000_emptygaragecarparkingavailable.jpg"
+                        ];
     
     var nextWideSrcToPull = 0;
     var nextTallSrcToPull = 0;
@@ -206,18 +214,30 @@
     
     var stimages;
     var nextIndexToChange = 0;
+    var stimages2col;
+    var nextIndexToChange2col = 0;
     var shortTimer = 140;
     var longTimer = 3100;
 
     function setupReplaceImages()
     {
+      // 3 col
       var widescreenstudioimages = document.getElementById('widescreenstudioimages');
       stimages = new Array(9);
       for(var i = 0; i < 9; i++)
       { 
         stimages[i] = widescreenstudioimages.getElementsByClassName('st' + (i+1))[0];
       }
-      setTimeout(replaceImages, 50);
+      setTimeout(replaceImages, longTimer);
+      
+      // 2 col
+      var thinscreenstudioimages = document.getElementById('thinscreenstudioimages');
+      stimages2col = new Array(9);
+      for(var i = 0; i < 9; i++)
+      { 
+        stimages2col[i] = thinscreenstudioimages.getElementsByClassName('st' + (i+1))[0];
+      }
+      setTimeout(replaceImages2col, longTimer);
     }
     function replaceImages()
     {
@@ -225,7 +245,7 @@
       imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
       var newone = imgToReplace.cloneNode(true);
       imgToReplace.parentNode.replaceChild(newone, imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
-      imgToReplace.classList.add("fadeIn");
+      // imgToReplace.classList.add("");
       stimages[nextIndexToChange] = newone;
       if (nextIndexToChange == stimages.length - 1)
       {
@@ -237,7 +257,26 @@
         nextIndexToChange++;
         setTimeout(replaceImages, shortTimer);
       }
-    }    
+    }
+    function replaceImages2col()
+    {
+      var imgToReplace = stimages2col[nextIndexToChange2col];
+      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
+      var newone = imgToReplace.cloneNode(true);
+      imgToReplace.parentNode.replaceChild(newone, imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
+      // imgToReplace.classList.add("fadeIn");
+      stimages2col[nextIndexToChange2col] = newone;
+      if (nextIndexToChange2col == stimages2col.length - 1)
+      {
+        nextIndexToChange2col = 0;
+        setTimeout(replaceImages2col, longTimer);
+      }
+      else
+      {
+        nextIndexToChange2col++;
+        setTimeout(replaceImages2col, shortTimer);
+      }
+    }   
   </script>
   <style>  
     div.studio-photos img
@@ -269,37 +308,37 @@
   <!-- Photo Grid widescreen -->
   <div id="widescreenstudioimages" class="w3-row-padding mainsection studio-photos widescreen-only">
     <div class="w3-third">
-      <div class="studioimageholder"><img class="st1 tallimage transinimg" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" /></div>
-      <div class="studioimageholder"><img class="st4 wideimage transinimg" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" /></div>
-      <div class="studioimageholder"><img class="st7 tallimage transinimg" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" /></div>
+      <div class="studioimageholder"><img class="st1 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" /></div>
+      <div class="studioimageholder"><img class="st4 wideimage transinimg fadeIn" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" /></div>
+      <div class="studioimageholder"><img class="st7 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" /></div>
     </div>
     <div class="w3-third">
-      <div class="studioimageholder"><img class="st2 tallimage transinimg" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" /></div>
-      <div class="studioimageholder"><img class="st5 tallimage transinimg" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" /></div>
-      <div class="studioimageholder"><img class="st8 wideimage transinimg" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" /></div>
+      <div class="studioimageholder"><img class="st2 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" /></div>
+      <div class="studioimageholder"><img class="st5 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" /></div>
+      <div class="studioimageholder"><img class="st8 wideimage transinimg fadeIn" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" /></div>
     </div>
     <div class="w3-third">
-      <div class="studioimageholder"><img class="st3 tallimage transinimg" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" /></div>
-      <div class="studioimageholder"><img class="st6 wideimage transinimg" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" /></div>
-      <div class="studioimageholder"><img class="st9 tallimage transinimg" src="http://supervoxel.world/images/tall_0008_plentyofplants.jpg" /></div>
+      <div class="studioimageholder"><img class="st3 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" /></div>
+      <div class="studioimageholder"><img class="st6 wideimage transinimg fadeIn" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" /></div>
+      <div class="studioimageholder"><img class="st9 tallimage transinimg fadeIn" src="http://supervoxel.world/images/tall_0008_plentyofplants.jpg" /></div>
     </div>
   </div>
 
   <!-- Photo Grid thinscreen -->
   <div id="thinscreenstudioimages" class="w3-row-padding mainsection studio-photos thinscreen-only">
     <div class="w3-third">
-      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0000_rooftopskylineview.jpg" />
-      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0005_yournewdesk.jpg" />
-      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
+      <div class="studioimageholder"><img class="st1 tallimage transinimg" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" /></div>
+      <div class="studioimageholder"><img class="st3 wideimage transinimg" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" /></div>
+      <div class="studioimageholder"><img class="st4 tallimage transinimg" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" /></div>
+      <div class="studioimageholder"><img class="st7 wideimage transinimg" src="http://supervoxel.world/images/wide_0005_yournewdesk.jpg" /></div>
     </div>
-    
     <div class="w3-third">
-      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0002_meetingtable.jpg" />
-      <img class="tallimage image2" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
-      <img class="wideimage image3" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
+      <div class="studioimageholder"><img class="st2 wideimage transinimg" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" /></div>
+      <div class="studioimageholder"><img class="st5 tallimage transinimg" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" /></div>
+      <div class="studioimageholder"><img class="st6 wideimage transinimg" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" /></div>
+      <div class="studioimageholder"><img class="st8 tallimage transinimg" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" /></div>
     </div>
   </div>
-  
 
   <!-- PRICING AND FEATURES LISTING -->
   <div class="w3-center mainsection" style="padding-top: 0px; margin-top: 0px; margin-bottom: 36px;">
@@ -348,8 +387,8 @@
     }
     div#panos img
     {
-      width: calc(100% + 130px);
-      left: calc(-130px / 2);
+      width: calc(100%);
+      position: relative;
     }
   </style>
   <div id="panos" class="w3-col">
@@ -362,7 +401,7 @@
 
   <!-- GAMES -->
   <script>
-  function triplicateImagesForMobile() 
+  function setupMovingImages() 
   {
     var containers = document.getElementsByClassName('tripleme');
 
@@ -381,72 +420,43 @@
           var cln = child.cloneNode(true);
           containers[i].appendChild(cln);
         }
-        // triplcate 
-        for (var j = 0; 
-          j < numChildren; 
-          j = j + 1)
-        {
-          var child = children[j];
-          var cln = child.cloneNode(true);
-          containers[i].appendChild(cln);
-        }
     }
   }
   </script>
 
   <style>
-    @media (min-width:11900px)
+  
+    .imagelist 
     {
-      div.imagelist
-      {
-        left:-12px;
-        width: auto;
-        height: 180px;
-        overflow-x: visible;
-        overflow-y: hidden;
-        white-space: nowrap;
-        margin-bottom: 24px;
-      }
-      div.imagelist img
-      {
-        height:100%;
-        margin-right: 24px;
-      }
+      width: 100vw;
+      height: 180px;
+      margin-bottom: 24px;
     }
-    @media (max-width:11900px)
+    .scrollingcontainer
     {
-      .imagelist 
-      {
-        width: 100vw;
-        height: 180px;
-        margin-bottom: 24px;
-      }
-      .scrollingcontainer
-      {
-        margin:0px;
-        position: absolute;
-        left: 0;
-        width: fit-content;
-        height: 180px;
-        font-size:0;
-        overflow-x: visible;
-        overflow-y: hidden;
-        white-space: nowrap;
-      }
-      .scrollright  { animation: marqueescrollright 12s linear infinite;  }
-      .scrollleft   { animation: marqueescrollleft 12s linear infinite;  }
+      margin:0px;
+      position: absolute;
+      left: 0;
+      width: fit-content;
+      height: 180px;
+      font-size:0;
+      overflow-x: visible;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+    .scrollright  { animation: marqueescrollright 12s linear infinite;  }
+    .scrollleft   { animation: marqueescrollleft 12s linear infinite;  }
+  
+    @keyframes marqueescrollright 
+    {
+      from  { transform: translateX(-50%);    }
+      to    { transform: translateX(0%);   }
+    }
     
-      @keyframes marqueescrollright 
-      {
-        from  { transform: translateX(-33.33333%);    }
-        to    { transform: translateX(0%);   }
-      }
-      
-      @keyframes marqueescrollleft 
-      {
-        from  { transform: translateX(0%);  }
-        to    { transform: translateX(-33.33333%);   }
-      }
+    @keyframes marqueescrollleft 
+    {
+      from  { transform: translateX(0%);  }
+      to    { transform: translateX(-50%);   }
     }
 
     .imagediv
@@ -463,12 +473,13 @@
 
   </style>
 
-    <div class="w3-center mainsection linkedimages" style="position: relative; overflow: hidden;">
-      <h2>Games Made Here</h2>
+    <div class="w3-center mainsection linkedimages" style="position: relative; overflow: hidden; max-width:calc(1200px - 48px); margin-left: auto; margin-right:auto;">
+      <h2>Devs Here Work On</h2>
       <p class="textblock">Kardboard Kings | Negative Nancy | Oxenfree II | Spearbound | Puzzle Retreat | Spin Rhythm XD | Steppy Pants | The Gardens Between | Train Conductor World</p>
       <div class="imagelist">
         <div class="scrollingcontainer scrollleft tripleme">
-          <div class="imagediv"><a href="https://twitter.com/moomoomang" title="Oscar Brittain"><img src="images/games/nanomon.png" /></a></div>
+          <div class="imagediv"><a href="https://twitter.com/moomoomang" title="Kardboard Kings"><img src="images/games/kardboard-kings.jpg" /></a></div>
+          <div class="imagediv"><a href="https://twitter.com/moomoomang" title="Nanomon"><img src="images/games/nanomon.png" /></a></div>
           <div class="imagediv"><a href="https://feed.games/negative-nancy" title="Negative Nancy"><img src="images/games/negative-nancy.jpg" /></a></div>
           <div class="imagediv"><a href="https://nightschoolstudio.com/oxenfree-ii/" title="Oxenfree II - Lost Signals"><img src="images/games/oxenfree-ii-lostsignals.jpg" /></a></div>
         </div>
@@ -483,6 +494,7 @@
       <div class="imagelist">
         <div class="scrollingcontainer scrollleft tripleme">
           <div class="imagediv"><a href="http://steppypants.com.au/press/index.html" title="Steppy Pants"><img src="images/games/steppy-pants.jpg" /></a></div>
+          <div class="imagediv"><a href="http://thevoxelagents.com/" title="Train Conductor"><img src="images/games/train-conductor.jpg" /></a></div>
           <div class="imagediv"><a href="http://trainconductorworld.com/" title="Train Conductor World"><img src="images/games/train-onductor-world.png" /></a></div>
           <div class="imagediv"><a href="http://thegardensbetween.com/" title="The Gardens Between"><img src="images/games/the-gardens-between.jpg" /></a></div>
         </div>
@@ -532,12 +544,24 @@
 
     <!-- GOOGLE MAPS location -->
     <div class="w3-clear"></div>
-    
-    <div class="map" align="center" style="width:900px; margin-left: auto; margin-right:auto;">
+    <style>
+      .map p a
+      {
+        color:lightcoral;
+      }
+      .map p a:hover
+      {
+        color:rgb(237, 67, 29);
+        font-weight: bolder;
+      }
+    </style>
+    <div id="map" class="map" align="center" style="width:900px; margin-left: auto; margin-right:auto;">
       <p class="w3-large">Super Voxel World
         <br />Unit 1, 62 Fallon St 
         <br />Brunswick VIC 3056 Australia
-        <br /><a href="https://www.google.com/maps/dir//1%2F62+Fallon+St,+Brunswick+VIC+3056/@-37.769205,144.9553383,20.09z/data=!4m17!1m7!3m6!1s0x6ad65cb69f7bcf51:0x18c62027cb8fe7ac!2s1%2F62+Fallon+St,+Brunswick+VIC+3056!3b1!8m2!3d-37.7692038!4d144.9555591!4m8!1m0!1m5!1m1!1s0x6ad65cb69f7bcf51:0x18c62027cb8fe7ac!2m2!1d144.9555591!2d-37.7692038!3e2">&gt; get directions.</a>
+      </p>
+      <p>
+        <a href="https://www.google.com/maps/dir//1%2F62+Fallon+St,+Brunswick+VIC+3056/@-37.769205,144.9553383,20.09z/data=!4m17!1m7!3m6!1s0x6ad65cb69f7bcf51:0x18c62027cb8fe7ac!2s1%2F62+Fallon+St,+Brunswick+VIC+3056!3b1!8m2!3d-37.7692038!4d144.9555591!4m8!1m0!1m5!1m1!1s0x6ad65cb69f7bcf51:0x18c62027cb8fe7ac!2m2!1d144.9555591!2d-37.7692038!3e2">Get Directions</a>
       </p>
       <iframe style="border:0px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8888736203717!2d144.95337041531744!3d-37.76920377976044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x76c2b3ed3f0aeaff!2sSuper%20Voxel%20World!5e0!3m2!1sen!2sau!4v1629773562515!5m2!1sen!2sau" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
@@ -578,6 +602,11 @@
       document.getElementById("mySidebar").style.display = "none";
     }
 
+    function GoToMap()
+    {
+      document.getElementById("mySidebar").style.display = "none";
+       window.location.href = "#map";
+    }
   </script>
 
   <div style="display: hidden; visibility: hidden; overflow:hidden; width:0px; height:0px; ">
