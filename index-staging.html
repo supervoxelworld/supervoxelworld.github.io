@@ -130,20 +130,6 @@
   {
     margin-bottom: 24px;
   }
-  div.studio-photos img
-  {
-    width:100%;
-  }
-  .thinscreen-only { display: none;  }
-  .widescreen-only { display: none; }
-  @media (max-width:900px)
-  {
-    .thinscreen-only {  display:block;   }
-  }
-  @media (min-width:900px)
-  {
-    .widescreen-only {  display:block;   }
-  }
   .textblock
   {
     margin-bottom: 42px;
@@ -209,6 +195,8 @@
                           "wide_0004_rooftopseating.jpg",
                           "wide_0000_emptygaragecarparkingavailable.jpg"];
     
+    var nextWideSrcToPull = 0;
+    var nextTallSrcToPull = 0;
     function GetNextTallImage()
     {
       var newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
@@ -221,92 +209,85 @@
       nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
       return newSrc;
     }
-
-    // variables
+    
+    var stimages;
     var nextIndexToChange = 0;
-    var nextWideSrcToPull = 0;
-    var nextTallSrcToPull = 0;
-    var image1s;
-    var image2s;
-    var image3s;
+    var shortTimer = 140;
+    var longTimer = 3100;
 
     function setupReplaceImages()
     {
       var widescreenstudioimages = document.getElementById('widescreenstudioimages');
-      image1s = widescreenstudioimages.getElementsByClassName('image1');
-      image2s = widescreenstudioimages.getElementsByClassName('image2');
-      image3s = widescreenstudioimages.getElementsByClassName('image3');
-      setTimeout(replaceImage1, 1000);
+      stimages = new Array(9);
+      for(var i = 0; i < 9; i++)
+      { 
+        stimages[i] = widescreenstudioimages.getElementsByClassName('st' + (i+1))[0];
+      }
+      setTimeout(replaceImages, 50);
     }
-    
-    var shortTimer = 160;
-    var longTimer = 3500;
-    function replaceImage1()
+    function replaceImages()
     {
-      var imgToReplace = image1s[nextIndexToChange];
+      var imgToReplace = stimages[nextIndexToChange];
       imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
-
-      if (nextIndexToChange == image1s.length - 1)
+      var newone = imgToReplace.cloneNode(true);
+      imgToReplace.parentNode.replaceChild(newone, imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
+      imgToReplace.classList.add("fadeIn");
+      stimages[nextIndexToChange] = newone;
+      if (nextIndexToChange == stimages.length - 1)
       {
         nextIndexToChange = 0;
-        setTimeout(replaceImage2, shortTimer);
+        setTimeout(replaceImages, longTimer);
       }
       else
       {
         nextIndexToChange++;
-        setTimeout(replaceImage1, shortTimer);
+        setTimeout(replaceImages, shortTimer);
       }
-    }
-    function replaceImage2()
-    {
-      var imgToReplace = image2s[nextIndexToChange];
-      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
-      
-      if (nextIndexToChange == image2s.length - 1)
-      {
-        nextIndexToChange = 0;
-        setTimeout(replaceImage3, shortTimer);
-      }
-      else
-      {
-        nextIndexToChange++;
-        setTimeout(replaceImage2, shortTimer);
-      }
-    }
-    function replaceImage3()
-    {
-      var imgToReplace = image3s[nextIndexToChange];
-      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
-      
-      if (nextIndexToChange == image3s.length - 1)
-      {
-        nextIndexToChange = 0;
-        setTimeout(replaceImage1, longTimer);
-      }
-      else
-      {
-        nextIndexToChange++;
-        setTimeout(replaceImage3, shortTimer);
-      }
-    }
-
+    }    
   </script>
+  <style>  
+    div.studio-photos img
+    {
+      width:100%;
+    }
+    .thinscreen-only { display: none;  }
+    .widescreen-only { display: none; }
+    @media (max-width:900px)
+    {
+      .thinscreen-only {  display:block;   }
+    }
+    @media (min-width:900px)
+    {
+      .widescreen-only {  display:block;   }
+    }
+    img.transinimg
+    {
+      animation: fadeInImage 0.33s 1 ease-in-out alternate;
+    }
+    @keyframes fadeInImage      
+    { 
+      from  { filter: blur(2.5px) contrast(1.15) brightness(1.3);  } 
+      to    { filter: blur(0px) contrast(1) brightness(1);} 
+    }
+    /* 
+     */
+    </style>
   <!-- Photo Grid widescreen -->
   <div id="widescreenstudioimages" class="w3-row-padding mainsection studio-photos widescreen-only">
     <div class="w3-third">
-      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" />
-      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" />
-      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" />
+      <div class="studioimageholder"><img class="st1 tallimage transinimg" src="http://supervoxel.world/images/tall_0009_secondfloordeskwithwindows.jpg" /></div>
+      <div class="studioimageholder"><img class="st4 wideimage transinimg" src="http://supervoxel.world/images/wide_0002_availableteamarea.jpg" /></div>
+      <div class="studioimageholder"><img class="st7 tallimage transinimg" src="http://supervoxel.world/images/tall_0003_bikestorage.jpg" /></div>
     </div>
     <div class="w3-third">
-      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" />
-      <img class="tallimage image2" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" />
-      <img class="wideimage image3" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" />
+      <div class="studioimageholder"><img class="st2 tallimage transinimg" src="http://supervoxel.world/images/tall_0001_firstfloordesk.jpg" /></div>
+      <div class="studioimageholder"><img class="st5 tallimage transinimg" src="http://supervoxel.world/images/tall_0004_espressocoffeemachine.jpg" /></div>
+      <div class="studioimageholder"><img class="st8 wideimage transinimg" src="http://supervoxel.world/images/wide_0000_emptygaragecarparkingavailable.jpg" /></div>
     </div>
     <div class="w3-third">
-      <img class="tallimage image1" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" />
-      <img class="wideimage image2" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" />
-      <img class="tallimage image3" src="http://supervoxel.world/images/tall_0008_plentyofplants.jpg" />
+      <div class="studioimageholder"><img class="st3 tallimage transinimg" src="http://supervoxel.world/images/tall_0005_secondfloordeskview.jpg" /></div>
+      <div class="studioimageholder"><img class="st6 wideimage transinimg" src="http://supervoxel.world/images/wide_0004_rooftopseating.jpg" /></div>
+      <div class="studioimageholder"><img class="st9 tallimage transinimg" src="http://supervoxel.world/images/tall_0008_plentyofplants.jpg" /></div>
     </div>
   </div>
 
@@ -329,7 +310,8 @@
   <!-- PRICING AND FEATURES LISTING -->
   <div class="w3-center mainsection" style="padding-top: 0px; margin-top: 0px; margin-bottom: 36px;">
     <h2 style="padding-top: 0px; margin-top: 0px;">Single desk - $360 per week inc gst (5 available)</h2>
-    <p class="textblock"><b>Rent is all inclusive:</b><br />
+    <p class="textblock">
+      <b>Rent is all inclusive:</b><br />
       • coffee/tea, internet, power/water/rates etc<br />
       • 1000mbps down : 400mbps up <br />
       • Seamless 4 level WIFI<br />
@@ -337,6 +319,8 @@
       • We share dev kits, testing devices etc<br />
       • Private rooftop with BBQ<br />
       • 24/7 access<br />
+    </p>
+    <p>
       <b>Flexible in lease length</b><br />
       <b>Carparking availability</b><br />
       <b>Discounts for teams</b>
@@ -596,5 +580,28 @@ function triplicateImagesForMobile()
   }
 
 </script>
+
+  <div style="display: hidden; visibility: hidden; overflow:hidden; width:0px; height:0px; ">
+    <img src="images/tall_0000_rooftopskylineview.jpg" />
+    <img src="images/tall_0006_kitchenwithdishwasherandseating.jpg" />
+    <img src="images/tall_0007_nicelylitsecondfloordesk.jpg" />
+    <img src="images/tall_0002_meetingtable.jpg" />
+    <img src="images/tall_0010_comfychairdesk.jpg" />
+    <img src="images/tall_0011_deskplantwindows.jpg" />
+    <img src="images/tall_0004_espressocoffeemachine.jpg" />
+    <img src="images/tall_0005_secondfloordeskview.jpg" />
+    <img src="images/tall_0008_plentyofplants.jpg" />
+    <img src="images/tall_0003_bikestorage.jpg" />
+    <img src="images/tall_0001_firstfloordesk.jpg" />
+    <img src="images/tall_0009_secondfloordeskwithwindows.jpg" />
+    <img src="images/wide_0005_yournewdesk.jpg" />
+    <img src="images/wide_0001_luncharea.jpg" />
+    <img src="images/wide_0003_coffeemachineandgrinder.jpg" />
+    <img src="images/wide_0006_couch.jpg" />
+    <img src="images/wide_0007_twodesks.jpg" />
+    <img src="images/wide_0002_availableteamarea.jpg" />
+    <img src="images/wide_0004_rooftopseating.jpg" />
+    <img src="images/wide_0000_emptygaragecarparkingavailable.jpg" />
+  </div>
 </body>
 </html>
