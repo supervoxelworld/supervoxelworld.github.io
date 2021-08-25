@@ -154,7 +154,7 @@
 
   <!-- Header -->
   <div class="mainsection">
-    <span class="w3-button w3-xxlarge  w3-right" onclick="w3_open()">
+    <span class="w3-button w3-xxlarge w3-right" onclick="w3_open()">
       <i class="fa fa-bars"></i>
     </span> 
     
@@ -557,7 +557,7 @@
         font-weight: bolder;
       }
     </style>
-    <div id="map" class="map" align="center" style="max-width:100vw; width:900px; margin-left: auto; margin-right:auto;">
+    <div id="map" class="map" align="center" style="max-width:100vw; width:900px; margin-left: auto; margin-right:auto; overflow-x: hidden;">
       <p class="w3-large">Super Voxel World
         <br />Unit 1, 62 Fallon St 
         <br />Brunswick VIC 3056 Australia
@@ -598,12 +598,10 @@
       document.getElementById("mySidebar").style.width = "100%";
       document.getElementById("mySidebar").style.display = "block";
     }
-
     function w3_close() 
     {
       document.getElementById("mySidebar").style.display = "none";
     }
-
     function GoToMap()
     {
       document.getElementById("mySidebar").style.display = "none";
