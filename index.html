@@ -26,8 +26,11 @@
   }
   function initialiseWebpage()
   {
+    // alert("init");
     setupMovingImages();
+    // alert("init2");
     setupReplaceImages();
+    // alert("init3");
   }
 </script>
 
@@ -183,98 +186,95 @@
       "tall_0001_firstfloordesk.jpg",
       "tall_0009_secondfloordeskwithwindows.jpg",
       "tall_0003_bikestorage.jpg"
-                        ];
-
+      ];
     var wideImagesSrc = [ 
-                          "wide_0001_luncharea.jpg",
-                          "wide_0003_coffeemachineandgrinder.jpg",
-                          "wide_0006_couch.jpg",
-                          "wide_0007_twodesks.jpg",
-                          "wide_0004_rooftopseating.jpg",
-                          "wide_0002_availableteamarea.jpg",
-                          "wide_0005_yournewdesk.jpg",
-                          "wide_0000_emptygaragecarparkingavailable.jpg"
-                        ];
-    
-    var nextWideSrcToPull = 0;
-    var nextTallSrcToPull = 0;
-    function GetNextTallImage()
-    {
-      var newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
-      nextTallSrcToPull = (nextTallSrcToPull == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull+1;
-      return newSrc;
-    }
-    function GetNextWideImage()
-    {
-      newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull];
-      nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
-      return newSrc;
-    }
+      "wide_0001_luncharea.jpg",
+      "wide_0003_coffeemachineandgrinder.jpg",
+      "wide_0006_couch.jpg",
+      "wide_0007_twodesks.jpg",
+      "wide_0004_rooftopseating.jpg",
+      "wide_0002_availableteamarea.jpg",
+      "wide_0005_yournewdesk.jpg",
+      "wide_0000_emptygaragecarparkingavailable.jpg"
+      ];
     
     var stimages;
     var nextIndexToChange = 0;
+    var nextWideSrcToPull = 0;
+    var nextTallSrcToPull = 0;    
+    
     var stimages2col;
     var nextIndexToChange2col = 0;
+    var nextWideSrcToPull2col = 0;
+    var nextTallSrcToPull2col = 0;    
+    
     var shortTimer = 140;
-    var longTimer = 3100;
+    var longTimer = 1100;
 
-    function setupReplaceImages()
+    function GetNextImageSource(imgToReplace)
     {
-      // 3 col
-      var widescreenstudioimages = document.getElementById('widescreenstudioimages');
-      stimages = new Array(9);
-      for(var i = 0; i < 9; i++)
-      { 
-        stimages[i] = widescreenstudioimages.getElementsByClassName('st' + (i+1))[0];
-      }
-      setTimeout(replaceImages, longTimer);
-      
-      // 2 col
-      var thinscreenstudioimages = document.getElementById('thinscreenstudioimages');
-      stimages2col = new Array(8);
-      for(var i = 0; i < 8; i++)
-      { 
-        stimages2col[i] = thinscreenstudioimages.getElementsByClassName('st' + (i+1))[0];
-      }
-      setTimeout(replaceImages2col, longTimer);
-    }
-    function replaceImages()
-    {
-      var imgToReplace = stimages[nextIndexToChange];
-      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
-      var newone = imgToReplace.cloneNode(true);
-      imgToReplace.parentNode.replaceChild(newone, imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
-      // imgToReplace.classList.add("");
-      stimages[nextIndexToChange] = newone;
-      if (nextIndexToChange == stimages.length - 1)
+      if (imgToReplace.classList.contains("tallimage") == true)
       {
-        nextIndexToChange = 0;
-        setTimeout(replaceImages, longTimer);
+        var newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull];
+        nextTallSrcToPull = (nextTallSrcToPull == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull+1;
+        return newSrc;
       }
       else
       {
-        nextIndexToChange++;
-        setTimeout(replaceImages, shortTimer);
+        newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull];
+        nextWideSrcToPull = (nextWideSrcToPull == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull+1;
+        return newSrc;
       }
+    }
+    function GetNextImageSource2col(imgToReplace)
+    {
+      if (imgToReplace.classList.contains("tallimage") == true)
+      {
+        var newSrc = "http://supervoxel.world/images/" + tallImagesSrc[nextTallSrcToPull2col];
+        nextTallSrcToPull2col = (nextTallSrcToPull2col == tallImagesSrc.length - 1) ? 0 : nextTallSrcToPull2col+1;
+        return newSrc;
+      }
+      else
+      {
+        newSrc = "http://supervoxel.world/images/" + wideImagesSrc[nextWideSrcToPull2col];
+        nextWideSrcToPull2col = (nextWideSrcToPull2col == wideImagesSrc.length - 1) ? 0 : nextWideSrcToPull2col+1;
+        return newSrc;
+      }
+    }
+    function GetImageList(listid, numImages)
+    {
+      var images = document.getElementById(listid);
+      var arraylist = new Array(numImages);
+      for(var i = 0; i < numImages; i++)
+      { 
+        arraylist[i] = images.getElementsByClassName('st' + (i+1))[0];
+      }
+      return arraylist;
+    }
+    function replaceImageSrc(arraylist, i, newSrc)
+    {
+      var imgToReplace = arraylist[i];
+      imgToReplace.src = newSrc;
+      arraylist[i] = imgToReplace.cloneNode(true);
+      imgToReplace.parentNode.replaceChild(arraylist[i], imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
+      return (i == arraylist.length - 1) ? 0 : (i+1);
+    }
+    function setupReplaceImages()
+    {
+      stimages = GetImageList('widescreenstudioimages', 9);
+      stimages2col = GetImageList('thinscreenstudioimages', 8);
+      setTimeout(replaceImages3col, longTimer);
+      setTimeout(replaceImages2col, longTimer);
+    }
+    function replaceImages3col()
+    {
+      nextIndexToChange = replaceImageSrc(stimages, nextIndexToChange, GetNextImageSource(stimages[nextIndexToChange]));
+      (nextIndexToChange == 0) ? setTimeout(replaceImages3col, longTimer) : setTimeout(replaceImages3col, shortTimer);
     }
     function replaceImages2col()
     {
-      var imgToReplace = stimages2col[nextIndexToChange2col];
-      imgToReplace.src = imgToReplace.classList.contains("tallimage") ? GetNextTallImage() : GetNextWideImage();
-      var newone = imgToReplace.cloneNode(true);
-      imgToReplace.parentNode.replaceChild(newone, imgToReplace); // to reset the fadein animation you've got to clone or some other hack 
-      // imgToReplace.classList.add("fadeIn");
-      stimages2col[nextIndexToChange2col] = newone;
-      if (nextIndexToChange2col == stimages2col.length - 1)
-      {
-        nextIndexToChange2col = 0;
-        setTimeout(replaceImages2col, longTimer);
-      }
-      else
-      {
-        nextIndexToChange2col++;
-        setTimeout(replaceImages2col, shortTimer);
-      }
+      nextIndexToChange2col = replaceImageSrc(stimages2col, nextIndexToChange2col, GetNextImageSource2col(stimages2col[nextIndexToChange2col]));
+      (nextIndexToChange2col == 0) ? setTimeout(replaceImages2col, longTimer) : setTimeout(replaceImages2col, shortTimer);
     }   
   </script>
   <style>  
